@@ -1,32 +1,97 @@
 #include<bits/stdc++.h>
+
 using namespace std;
-#define prev kundol
-int n, o, A, B, asum, bsum;
-string s, prev; 
-string print(int a){ 
-    string d = "00" + to_string(a / 60); 
-    string e = "00" + to_string(a % 60); 
-    return d.substr(d.size() - 2, 2) + ":" + e.substr(e.size() - 2, 2); 
+
+int n, goalTeam, scoreTeam1, scoreTeam2, recordedTeam, winningTimeTeam1, winningTimeTeam2;
+string goalTime, recordedTime;
+bool flag = true; // 동점인지 아닌지. true면 동점. false면 동점아님.
+
+int ConvertTimeToInt(string strTime)
+{
+    return atoi(strTime.substr(0,2).c_str())*60 + atoi(strTime.substr(3,2).c_str());
 }
-int changeToInt(string a){
-    return atoi(a.substr(0, 2).c_str()) * 60 + atoi(a.substr(3, 2).c_str());
+
+string ConvertTimeToStr(int intTime)
+{
+    string ret;
+    if(intTime/60 == 0)
+    {
+        ret += "00";
+    }
+    else if(intTime/60 <10)
+    {
+        ret += "0"+to_string(intTime/60);
+    }
+    else
+    {
+        ret += to_string(intTime/60);
+    }
+    ret += ":";
+
+    if(intTime%60 == 0)
+    {
+        ret += "00";
+    }
+    else if(intTime%60 <10)
+    {
+        ret += "0"+to_string(intTime%60);
+    }
+    else
+    {
+        ret += to_string(intTime%60);
+    }
+    return ret;
 }
-void go(int &sum, string s){ 
-    sum += (changeToInt(s) - changeToInt(prev)); 
-}
-int main(){
-    ios_base::sync_with_stdio(false); 
-    cin.tie(NULL); cout.tie(NULL); 
-    cin >> n; 
-    for(int i = 0; i < n; i++){
-        cin >> o >> s; 
-        if(A > B)go(asum, s);
-        else if(B > A)go(bsum, s);
-		o == 1 ? A++ : B++;
-        prev = s; 
-    } 
-    if(A > B)go(asum, "48:00");
-    else if(B > A)go(bsum, "48:00"); 
-    cout << print(asum) << "\n"; 
-    cout << print(bsum) << "\n";
+
+
+int main()
+{
+    cin >> n;
+    for(int i=0; i<n; i++)
+    {
+        // 골 넣은 시각 ~ 동점이 된 시각의 차
+        cin >> goalTeam >> goalTime;
+        
+        if(goalTeam == 1) scoreTeam1++;
+        else scoreTeam2++;
+
+        if(scoreTeam1 != scoreTeam2)
+        {
+            if(!flag) continue;
+            flag = false;
+            recordedTeam = goalTeam;
+            recordedTime = goalTime;
+        }
+        else
+        {
+            // 점수 처리
+            flag = true;
+            if(recordedTeam == 1)
+            {
+                winningTimeTeam1 += ConvertTimeToInt(goalTime) - ConvertTimeToInt(recordedTime);
+            }
+            else
+            {
+                winningTimeTeam2 += ConvertTimeToInt(goalTime) - ConvertTimeToInt(recordedTime);
+            }
+
+        }        
+    }
+
+    if(!flag)
+    {
+        if(recordedTeam == 1)
+        {
+            winningTimeTeam1 += ConvertTimeToInt("48:00") - ConvertTimeToInt(recordedTime);
+        }
+        else
+        {
+            winningTimeTeam2 += ConvertTimeToInt("48:00") - ConvertTimeToInt(recordedTime);
+        }
+    }
+
+    cout << ConvertTimeToStr(winningTimeTeam1) << '\n';
+    cout << ConvertTimeToStr(winningTimeTeam2) << '\n';
+
+    return 0;
 }
