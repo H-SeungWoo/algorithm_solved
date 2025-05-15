@@ -3,7 +3,7 @@
 using namespace std;
 
 int n,m;
-map<int, int> cards;
+unordered_map<int, int> cards;
 
 int main()
 {
