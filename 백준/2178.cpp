@@ -4,51 +4,37 @@ using namespace std;
 
 int dy[4] = {-1, 0, 1, 0};
 int dx[4] = {0, 1, 0, -1};
-
-int n, m, y, x, ny, nx;
-int test_map[104][104];
-int visited[104][104];
-
-string buffer;
+int a[100][100], visited[100][100], n, m, x, y;
 
 int main()
 {
     cin >> n >> m;
-
-    for(int i =1; i<=n; i++)
+    for(int i=0; i<n; i++)
     {
-        cin>>buffer;
-        for(int j=1; j<=m; j++)
+        for(int j=0; j<m; j++)
         {
-            test_map[i][j] = buffer[j-1] -'0';
-            //cout<<test_map[i][j] << '\n';
+            scanf("%1d", &a[i][j]);
         }
     }
 
-    queue<pair<int, int>> q; 
-    q.push({1,1});
-    visited[1][1] = 1;
-
+    queue<pair<int, int>> q;
+    visited[y][x] = 1;
+    q.push({y,x});
     while(q.size())
     {
-        tie(y,x) = q.front(); q.pop();
-        
+        tie(y,x) = q.front();
+        q.pop();
         for(int i=0; i<4; i++)
         {
-            ny = y + dy[i];
-            nx = x + dx[i];
-
-            if(ny<1 || nx <1 || ny > n || nx > m) continue;
-            if(test_map[ny][nx] == 1 && !visited[ny][nx])
-            {
-                visited[ny][nx] = visited[y][x] + 1;
-                q.push({ny,nx});
-            }
+            int ny = y + dy[i];
+            int nx = x + dx[i];
+            if(ny<0 || ny >= n || nx <0 || nx >= m || a[ny][nx] == 0) continue;
+            if(visited[ny][nx] != 0) continue;
+            visited[ny][nx] = visited[y][x] + 1;
+            q.push({ny, nx});
         }
-        //cout <<  "{"<<q.front().first <<","<< q.front().second<< "}" <<'\n';
     }
 
-    cout << visited[n][m] <<'\n';
-
+    cout << visited[n-1][m-1] <<'\n';
     return 0;
 }

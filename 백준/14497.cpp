@@ -2,7 +2,6 @@
 
 using namespace std;
 
-
 int dy[4] = {-1, 0, 1, 0};
 int dx[4] = {0, 1, 0, -1};
 int n, m, sx, sy, ex, ey, visited[304][304], cnt;

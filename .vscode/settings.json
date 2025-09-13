@@ -26,6 +26,7 @@
         "chrono": "cpp",
         "format": "cpp",
         "generator": "cpp",
-        "text_encoding": "cpp"
+        "text_encoding": "cpp",
+        "variant": "cpp"
     }
 }
