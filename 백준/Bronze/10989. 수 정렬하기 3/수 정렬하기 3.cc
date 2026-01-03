@@ -15,12 +15,24 @@ int main(){
         cnt[temp]++;
     }
 
+    string out;
+    out.reserve(1<<20);
     for(int i=1; i<=10000; i++){
         int a = cnt[i];
         while(a--){
-            cout<<i<<'\n';
+            out += to_string(i);
+            out += '\n';
+            
+            if(out.size() >= (1<<20)){
+                cout<<out;
+                out.clear();
+            }
         }
     }
 
+    if(!out.empty()){
+        cout<<out;
+    }
+    
     return 0;
 }
