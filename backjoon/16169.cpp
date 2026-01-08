@@ -12,24 +12,12 @@ struct Computer{
 }; 
 
 Computer* computers[101];
-int n, a, b, ret, dp[101];
+int n, a, b, ret, dp[101], maxLevel;
 vector<int> nodes[101];
 
 int send(int i, int j){
     return (i-j)*(i-j);
 }
-
-int solve(int level){
-    if(level>n) return 0;
-
-    int& ret = dp[level];
-    if(ret != INF) return ret;
-
-    for(int node: nodes[level]){
-        ret = min(ret, computers[node].speed + send(node, solve(level+1)));
-    }
-}
-
 
 int main(){
     ios_base::sync_with_stdio(false);
@@ -40,10 +28,30 @@ int main(){
         cin>>a>>b;
         computers[i] = new Computer(i,a,b);
         nodes[a].push_back(i);
+
+        maxLevel=max(maxLevel, a);
     }
 
 
-    fill(dp, dp+101, INF);
+    fill(dp, dp+101, 0);
 
+    nodes[0].push_back(0);
+
+    for(int i=1; i<=maxLevel; i++){
+        for(int node: nodes[i]){
+            for(int pre: nodes[i-1]){
+                int sendtime = 0;
+                if(i != 1) sendtime = send(node,pre);
+                
+                dp[node] = max(dp[node], dp[pre]+ computers[node]->speed + sendtime);
+            }
+        }        
+    }
+    
+    for(int node: nodes[maxLevel]){
+        ret = max(ret, dp[node]);
+    }
+
+    cout<<ret<<'\n';
 
 }
