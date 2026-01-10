@@ -27,6 +27,14 @@
         "format": "cpp",
         "generator": "cpp",
         "text_encoding": "cpp",
-        "variant": "cpp"
+        "variant": "cpp",
+        "memory": "cpp",
+        "future": "cpp",
+        "istream": "cpp",
+        "functional": "cpp",
+        "utility": "cpp",
+        "new": "cpp",
+        "any": "cpp",
+        "type_traits": "cpp"
     }
 }
