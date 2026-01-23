@@ -10,7 +10,7 @@ int main(){
     cin>>n>>k;
 
     num1 = k%10;
-    num2 = num1*2;
+    num2 = (k*2)%10;
 
     for(int i=1; i<=n; i++){
         if(i%10==num1 || i%10==num2) continue;
