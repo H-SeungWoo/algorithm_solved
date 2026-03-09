@@ -2,22 +2,28 @@
 
 using namespace std;
 typedef long long ll;
-string str1, str2, longStr, shortStr, ret;
-
+string a, b, ret;
+int n, m, k;
 
 int main(){
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
 
-    cin>>str1>>str2;
-    if(str1.size()>str2.size()){
-        longStr = str1; shortStr=str2;
+    cin>>a>>b;
+
+    n = (int)a.size() - 1;
+    m = (int)b.size() - 1;
+
+    while(n>= 0 || m>=0 || k){
+        int sum = k;
+        if(n>=0) sum += a[n--] - '0';
+        if(m>=0) sum += b[m--] - '0';
+        
+        ret += ('0'+sum%10);
+        k = sum/10;
     }
-    else{
-        longStr = str2; shortStr=str1;
-    }
 
-
-    for(i=0;i<)
-
-    ret*10+(str1[i]+str2[i])
+    reverse(ret.begin(), ret.end());
+    cout << ret<<'\n';
     return 0;
 }
