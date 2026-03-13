@@ -2,10 +2,10 @@
 
 using namespace std;
 
-int n, r, c, a[33000][33000];
+int n, r, c;
 
-void solve(){
-
+int solve(){
+    
 }
 
 int main(){
